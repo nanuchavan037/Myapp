@@ -13,7 +13,6 @@ pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@127.0.0.1/db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'key'
 db = SQLAlchemy(app)
 
@@ -118,9 +117,8 @@ class Todo(db.Model):
         response.headers["Expires"] = "-1"
         return response
 
-
-    if __name__ == '__main__':
-        app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # from flask import Flask, make_response, render_template, request, redirect, url_for, flash ,abort
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user , current_user , login_user  
