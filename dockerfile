@@ -1,17 +1,27 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim-buster
+# Use an official Python runtime as the base image
+FROM python:3.9-slim
 
-# Set the working directory in the container to /app
+# Set the working directory in the container
 WORKDIR /app
 
-# Add the current directory contents into the container at /app
-COPY . .
+# install required packages for system
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install any needed packages specified in requirements.txt
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install app dependencies
+RUN pip install mysqlclient
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 5000
+# Copy the rest of the application code
+COPY . .
 
-# Run myapp.py when the container launches
+EXPOSE  5000
+# Specify the command to run your application
+
+
 CMD ["python", "app.py"]
