@@ -133,7 +133,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-mysql_host = 'localhost'
+mysql_host = '127.0.0.1'
 mysql_user = 'root'
 mysql_password = 'root'
 mysql_db = 'sampledb'
